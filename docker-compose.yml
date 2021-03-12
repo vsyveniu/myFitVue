@@ -1,0 +1,18 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+    container_name: myfitvue
+    init: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/src/myFitVue/
+      - nodemodules:/src/myFitVue/node_modules
+    restart: always
+    command: npm run serve
+volumes:
+  nodemodules: {}
