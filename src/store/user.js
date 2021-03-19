@@ -1,22 +1,15 @@
-import { getUser, loginUser } from '@/services/user.service';
+import { getUser } from '@/services/user.service';
 
 const mutations = {
-  setAuthStatus(state, status) {
-    state.authStatus.status = status.status;
-    state.authStatus.isLoading = status.isLoading;
-  },
-  setAuthLoading(state, status) {
-    state.authLoading = status;
-  },
-  setAuthSuccess(state, userdata) {
+  setUser(state, userdata) {
     state.user = userdata.user;
     state.token = userdata.token;
   },
-  killAuth(state){
+  killAuth(state) {
     state.user = {};
     state.token = null;
     localStorage.removeItem('authorization');
-  }
+  },
 };
 
 const actions = {
@@ -28,39 +21,27 @@ const actions = {
       commit('setUserError', err);
     }
   },
-  async login({ commit }, { email, password }) {
+  async setUser({ commit }, user) {
     try {
-      commit('setAuthStatus', { isLoading: true });
-      const user = await loginUser(email, password);
-      console.log(user);
-      localStorage.setItem('authorization', user.token);
-      //axios.defaults.headers.common['Authorization'] = token
-      commit('setAuthSuccess', user);
-      /*       commit('setAuthStatus', {
-        status: 'login successfull',
-        isLoading: false,
-      }); */
+      commit('setUser', user);
     } catch (err) {
-      commit('setAuthStatus', { status: err.response.data, isLoading: false });
+      commit('setUserError', err);
     }
+  },
+  async setLoggedIn({ commit }, isLoggedIn) {
+    commit('setIsLoggedIn', isLoggedIn);
   },
   async logout({ commit }) {
     commit('killAuth');
-  },
-  async changeStatusNotification({ commit }, status) {
-    console.log('daym');
-    commit('setAuthStatus', status);
   },
 };
 const state = () => ({
   token: localStorage.getItem('authorization') || null,
   user: {},
-  authStatus: { status: false, isLoading: false },
 });
 
 const getters = {
   user: ({ user }) => user,
-  authStatus: ({ authStatus }) => authStatus,
   isLoggedIn: state => !!state.token,
 };
 

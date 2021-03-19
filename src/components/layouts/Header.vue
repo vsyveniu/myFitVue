@@ -1,53 +1,109 @@
 <template>
   <header class="header">
-    <div>here is logo</div>
-    <div>{{ authStatus.status }}</div>
-    <div v-show="!isLoggedIn">
-      <button>login</button>
-      <div v-show="isLoginVisible">
-        <Login />
+    <nav class="navbar is-light">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+        </a>
+        <a role="button" class="navbar-burger" v-bind:class="{ 'is-active': isBurgerActive }" @click="toggleBurger">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-      <div>
-        <button>register</button>
-        <!-- <Register /> -->
+
+      <div class="navbar-menu" v-bind:class="{ 'is-active': isBurgerActive }">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+
+          <a class="navbar-item">
+            Documentation
+          </a>
+        </div>
+        {{ this.user.name }}
+        <div class="navbar-end header_auth">
+          <div v-show="!isLoggedIn" class="navbar-item">
+            <div class="buttons">
+              <button @click="showLoginForm" class="login__button button is-info">login</button>
+              <div class="login__container" v-show="isLoginVisible" v-click-outside="hideLoginForm">
+                <Login @hide="hideLoginForm" />
+              </div>
+              <div>
+                <button @click="showRegisterForm" class="register__button button is-primary">register</button>
+                <div class="login__container" v-show="isRegisterVisible" v-click-outside="hideRegisterForm">
+                  <Register @hide="hideRegisterForm" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    {{ isLoggedIn }}
-    <button v-show="isLoggedIn">logout</button>
+
+      <button class="button is-warning" v-show="isLoggedIn" @click="logout">logout</button>
+    </nav>
   </header>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import ClickOutside from 'vue-click-outside';
 
 export default {
   name: 'Header',
   components: {
     Login: () => import('@/components/auth/Login'),
+    Register: () => import('@/components/auth/Register'),
   },
   data: function() {
     return {
       isLoginVisible: false,
+      isRegisterVisible: false,
+      isClickedOutside: true,
+      isBurgerActive: false,
     };
+  },
+  directives: {
+    ClickOutside,
   },
   computed: {
     ...mapGetters({
       user: 'user',
-      authStatus: 'authStatus',
       isLoggedIn: 'isLoggedIn',
     }),
   },
   methods: {
-    logout: () => {
-       this.$store.dispatch('logout', )
-        .then(() => {console.log('logged out')})
+    logout: function() {
+      this.$store
+        .dispatch('logout')
+        .then(() => {
+          console.log('logged out');
+        })
         .catch(err => console.log(err));
-    }
+    },
+    showLoginForm: function() {
+      this.isLoginVisible = !this.isLoginVisible;
+    },
+    showRegisterForm: function() {
+      this.isRegisterVisible = !this.isRegisterVisible;
+    },
+    hideLoginForm(e) {
+      if (!e.target.classList.contains('login__button')) {
+        this.isLoginVisible = false;
+      }
+    },
+    hideRegisterForm(e) {
+      if (!e.target.classList.contains('register__button')) {
+        this.isRegisterVisible = false;
+      }
+    },
+    toggleBurger() {
+      this.isBurgerActive = !this.isBurgerActive;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.header {
-  border: 3px solid blue;
-}
+@import 'src/styles/components/layouts/header.scss';
 </style>
