@@ -2,9 +2,10 @@
   <header class="header">
     <nav class="navbar is-light">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
-        </a>
+        <router-link class="navbar-item" to="/"
+          ><img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"
+        /></router-link>
+
         <a role="button" class="navbar-burger" v-bind:class="{ 'is-active': isBurgerActive }" @click="toggleBurger">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -13,16 +14,17 @@
       </div>
 
       <div class="navbar-menu" v-bind:class="{ 'is-active': isBurgerActive }">
-        <div class="navbar-start">
+        <div class="navbar-start" v-show="isLoggedIn">
+          <router-link class="navbar-item" to="/myday">My day</router-link>
           <a class="navbar-item">
-            Home
+            Full chain
           </a>
 
           <a class="navbar-item">
-            Documentation
+            Profile
           </a>
         </div>
-        {{ this.user.name }}
+
         <div class="navbar-end header_auth">
           <div v-show="!isLoggedIn" class="navbar-item">
             <div class="buttons">
@@ -38,10 +40,16 @@
               </div>
             </div>
           </div>
+          <div class="navbar-item" v-show="isLoggedIn">
+            <p class="user__name">
+              {{ this.user.name }}
+            </p>
+            <div class="buttons">
+              <button class="button is-warning" @click="logout">logout</button>
+            </div>
+          </div>
         </div>
       </div>
-
-      <button class="button is-warning" v-show="isLoggedIn" @click="logout">logout</button>
     </nav>
   </header>
 </template>

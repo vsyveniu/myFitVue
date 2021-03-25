@@ -12,7 +12,31 @@ const routes = [
   },
   {
     path: '/myday',
-    name: 'day',
+    name: 'myday',
+    component: () => import(/* webpackChunkName: "Day" */ '@/views/Day.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/chain',
+    name: 'chain',
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/Day.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/Day.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profile/:id',
+    name: 'profileInfo',
     component: () => import(/* webpackChunkName: "Home" */ '@/views/Day.vue'),
     meta: {
       requiresAuth: true
