@@ -16,9 +16,7 @@
       <div class="navbar-menu" v-bind:class="{ 'is-active': isBurgerActive }">
         <div class="navbar-start" v-show="isLoggedIn">
           <router-link class="navbar-item" to="/myday">My day</router-link>
-          <a class="navbar-item">
-            Full chain
-          </a>
+          <router-link class="navbar-item" to="/chain">Full chain</router-link>
 
           <a class="navbar-item">
             Profile

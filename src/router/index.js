@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/chain',
     name: 'chain',
-    component: () => import(/* webpackChunkName: "Home" */ '@/views/Day.vue'),
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/Chain.vue'),
     meta: {
       requiresAuth: true
     }
