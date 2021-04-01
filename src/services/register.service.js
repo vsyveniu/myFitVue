@@ -11,7 +11,7 @@ const registerUser = async (name, email, password) => {
   console.log('in axios');
   console.log(response.headers);
   console.log(response.data);
-  return { user: response.data, token: response.headers.authorization };
+  return { user: response.data, token: response.headers.authtoken };
 };
 
 export { registerUser };

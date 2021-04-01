@@ -126,7 +126,7 @@ export default {
     }),
   },
   mounted() {
-    console.log(localStorage.getItem('authorization'));
+    
   },
   methods: {
     register: function() {

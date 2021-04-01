@@ -26,7 +26,7 @@ const actions = {
     try {
       commit('setRegLoading', { isLoading: true });
       const user = await registerUser(name, email, password);
-      localStorage.setItem('authorization', user.token);
+      localStorage.setItem('authtoken', user.token);
       commit('setRegSuccess', {
         message: false,
         errField: {
@@ -38,18 +38,18 @@ const actions = {
       store.dispatch('setUser', user);
       commit('setRegLoading', false);
     } catch (err) {
-      let mail = err.response.status == 404 ? true : false;
+      let name = err.response.status == 409 ? true : false;
+      let mail = err.response.status == 409 ? true : false;
       let password = err.response.status == 400 ? true : false;
       commit('setRegFail', {
         message: err.response.data,
-        errField: { mail, password },
+        errField: {name, mail, password },
       });
       commit();
       commit('setRegLoading', false);
     }
   },
   async changeStatusNotification({ commit }, status) {
-    console.log('bitch');
     commit('setRegStatus', status);
   },
   async hideRegMessage({ commit }) {

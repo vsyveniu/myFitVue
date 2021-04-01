@@ -26,7 +26,7 @@ const actions = {
     try {
       commit('setAuthLoading', true);
       const user = await loginUser(email, password);
-      localStorage.setItem('authorization', user.token);
+      localStorage.setItem('authtoken', user.token);
       commit('setAuthSuccess', {
         message: false,
         errField: {

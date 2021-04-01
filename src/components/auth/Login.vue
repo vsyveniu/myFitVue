@@ -85,7 +85,7 @@ export default {
     }),
   },
   mounted() {
-    console.log(localStorage.getItem('authorization'));
+    console.log(localStorage.getItem('authtoken'));
   },
   methods: {
     login: function() {

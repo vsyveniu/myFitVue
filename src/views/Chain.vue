@@ -1,7 +1,10 @@
 <template>
   <div class="hello">
-    <draggable v-model="chain" group="fullchain" @start="drag = true" @end="drag = false">
-      <div v-for="(value, key) in chain" :key="key">{{ value.id }}</div>
+    <draggable v-model="chain" group="fullchain" @start="drag = true" @end="drag = false" @change="updateChain" class="chain__container">
+      <div v-for="(value, key) in chain" :key="key" class="box chain__item">
+        <div>{{ value.daily_id }}</div>
+        <div>{{ value.meta.type }}</div>
+      </div>
     </draggable>
 
     this is full chain boy
@@ -9,7 +12,6 @@
 </template>
 
 <script>
-//import Day from './Day.vue';
 import draggable from 'vuedraggable';
 import { mapGetters } from 'vuex';
 export default {
@@ -19,19 +21,35 @@ export default {
   },
   computed: {
     ...mapGetters({
-      chain: 'chain',
-    }),
+      chainStore: 'chain',
+    }), 
+    chain: {
+        get() {
+          console.log('feck chain get');
+          console.log(this.chainStore);
+            return this.chainStore;
+        },
+        set(val) {
+          console.log(val);
+          console.log('in set');
+            this.$store.dispatch('update', val);
+        }
+    } 
   },
   data: function() {
     return {
-      chain: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+      //chain: [],
     };
+  },
+  created() {
+    this.fetchChain();
   },
   methods: {
     fetchChain() {
       this.$store
-        .dispatch('fetch', 1)
+        .dispatch('fetch')
         .then(() => {
+          console.log('called inside created');
           setTimeout(() => this.hideMessage(), 3000);
         })
         .catch(err => {
@@ -39,12 +57,19 @@ export default {
           setTimeout(() => this.hideMessage(), 3000);
         });
     },
-    hideMessage(){
-      this.$store.data('hideChainMessage');
-    }
+    updateChain() {
+     
+      //this.$store.dispatch('update', this.chain).then(() => console.log('updated'));
+    },
+    hideMessage() {
+      this.$store.dispatch('hideChainMessage');
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style lang="scss" scoped>
+@import 'src/styles/components/chain.scss';
+</style>
+

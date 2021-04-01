@@ -7,7 +7,9 @@ const loginUser = async (email, password) => {
     email: email,
     password: password,
   });
-  return { user: response.data, token: response.headers.authorization };
+  console.log('auth token');
+  console.log(response.headers.authtoken);
+  return { user: response.data, token: response.headers.authtoken };
 };
 
 export { loginUser };

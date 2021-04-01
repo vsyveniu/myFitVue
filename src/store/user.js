@@ -8,7 +8,7 @@ const mutations = {
   killAuth(state) {
     state.user = {};
     state.token = null;
-    localStorage.removeItem('authorization');
+    localStorage.removeItem('authtoken');
   },
 };
 
@@ -36,7 +36,7 @@ const actions = {
   },
 };
 const state = () => ({
-  token: localStorage.getItem('authorization') || null,
+  token: localStorage.getItem('authtoken') || null,
   user: {},
 });
 
