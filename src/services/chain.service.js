@@ -7,29 +7,24 @@ import axios from 'axios';
 const API_URL = `http://${process.env.VUE_APP_API_HOST}`;
 
 const fetchChain = async userName => {
-  const response = await axios.get(`${API_URL}/chain/${userName}`,  {
-    headers: { 'authtoken': localStorage.getItem('authtoken')},  
+  const response = await axios.get(`${API_URL}/chain/${userName}`, {
+    headers: { authtoken: localStorage.getItem('authtoken') },
   });
   return { response };
 };
 
 const updateChain = async (username, set) => {
-
-  const response = await axios.put(`${API_URL}/chain/`, {
-    username,
-    set,
-  },
-  {
-    headers: { 'authtoken': localStorage.getItem('authtoken')},
-  });
+  const response = await axios.put(
+    `${API_URL}/chain/`,
+    {
+      username,
+      set,
+    },
+    {
+      headers: { authtoken: localStorage.getItem('authtoken') },
+    }
+  );
   return { response };
 };
 
-const createChain = async userName => {
-  const response = await axios.post(`${API_URL}/chain/${userName}`,  {
-    headers: { 'authtoken': localStorage.getItem('authtoken')},  
-  });
-  return { response };
-};
-
-export { fetchChain, updateChain, createChain };
+export { fetchChain, updateChain };

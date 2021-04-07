@@ -1,19 +1,43 @@
 <template>
   <div class="hello">
-    <draggable v-model="chain" group="fullchain" @start="drag = true" @end="drag = false" @change="updateChain" class="chain__container">
+    <draggable v-model="chain" group="fullchain" @start="drag = true" @end="drag = false" class="chain__container container">
       <div v-for="(value, key) in chain" :key="key" class="box chain__item">
         <div>{{ value.daily_id }}</div>
         <div>{{ value.meta.type }}</div>
       </div>
     </draggable>
-
-    this is full chain boy
+    <div
+      class="notification is-light"
+      v-bind:class="[!chainErr.serverFucked && !chainErr.badOrder ? 'is-success' : 'is-danger']"
+      v-show="chainMessage"
+    >
+      <button role="button" type="button" class="delete" @click="hideMessage"></button>{{ chainMessage }}
+    </div>
+    <div v-show="chainIsLoading">fuck</div>
+    <div class="buttons">
+      <button class="add_daily button" @click="showExList"><font-awesome-icon icon="plus" :style="{ color: 'coral', opacity: 0.5 }" /></button>
+      <div v-click-outside="hideHelp">
+        <button class="button help_button" @click="toggleHelp">help me...</button>
+        <div class="help box" v-show="this.help" >
+          <p>I'm consider myself as Negro and will stick with Jora's chain</p>
+          <button>Use a King's wisdom</button>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
+import ClickOutside from 'vue-click-outside';
 import { mapGetters } from 'vuex';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
+library.add([faPlus]);
+
 export default {
   name: 'Chain',
   components: {
@@ -22,23 +46,28 @@ export default {
   computed: {
     ...mapGetters({
       chainStore: 'chain',
-    }), 
+      chainMessage: 'chainMessage',
+      chainIsLoading: 'chainIsLoading',
+      chainErr: 'chainErr',
+    }),
     chain: {
-        get() {
-          console.log('feck chain get');
-          console.log(this.chainStore);
-            return this.chainStore;
-        },
-        set(val) {
-          console.log(val);
-          console.log('in set');
-            this.$store.dispatch('update', val);
-        }
-    } 
+      get() {
+        return this.chainStore;
+      },
+      set(val) {
+        console.log(val);
+        console.log('in set');
+        this.$store.dispatch('update', val);
+      },
+    },
+  },
+  directives: {
+    ClickOutside,
   },
   data: function() {
     return {
       //chain: [],
+      help: false,
     };
   },
   created() {
@@ -49,20 +78,23 @@ export default {
       this.$store
         .dispatch('fetch')
         .then(() => {
-          console.log('called inside created');
-          setTimeout(() => this.hideMessage(), 3000);
+         // setTimeout(() => this.hideMessage(), 3000);
         })
-        .catch(err => {
-          console.log(err);
-          setTimeout(() => this.hideMessage(), 3000);
+        .catch(() => {
+          //setTimeout(() => this.hideMessage(), 3000);
         });
-    },
-    updateChain() {
-     
-      //this.$store.dispatch('update', this.chain).then(() => console.log('updated'));
     },
     hideMessage() {
       this.$store.dispatch('hideChainMessage');
+    },
+    showExList() {
+      console.log('daymn');
+    },
+    toggleHelp(){
+      this.help = !this.help;
+    },
+    hideHelp(){
+      this.help = false;
     },
   },
 };
@@ -72,4 +104,3 @@ export default {
 <style lang="scss" scoped>
 @import 'src/styles/components/chain.scss';
 </style>
-
