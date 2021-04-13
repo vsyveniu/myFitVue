@@ -1,6 +1,12 @@
 <template>
-  <div class="hello">
-    <draggable v-model="chain" group="fullchain" @start="drag = true" @end="drag = false" class="chain__container container">
+  <div>
+    <draggable
+      v-model="chain"
+      group="fullchain"
+      @start="drag = true"
+      @end="drag = false"
+      class="chain__container container"
+    >
       <div v-for="(value, key) in chain" :key="key" class="box chain__item">
         <div>{{ value.daily_id }}</div>
         <div>{{ value.meta.type }}</div>
@@ -15,22 +21,30 @@
     </div>
     <div v-show="chainIsLoading">fuck</div>
     <div class="buttons">
-      <button class="add_daily button" @click="showExList"><font-awesome-icon icon="plus" :style="{ color: 'coral', opacity: 0.5 }" /></button>
+      <button class="navbar-item" @click="createDay">create new day</button>
+      <button class="add_daily button" @click="showExList">
+        <font-awesome-icon icon="plus" :style="{ color: 'coral', opacity: 0.5 }" />
+      </button>
       <div v-click-outside="hideHelp">
-        <button class="button help_button" @click="toggleHelp">help me...</button>
-        <div class="help box" v-show="this.help" >
-          <p>I'm consider myself as Negro and will stick with Jora's chain</p>
-          <button>Use a King's wisdom</button>
+        <button class="button help_button" @click="toggleHelp" v-bind:class="{ 'is-active': this.help }">
+          help me...
+        </button>
+        <div class="help box" v-show="this.help">
+          <div class="content block">
+            <p>I'm consider myself as Negro and will stick with King's chain</p>
+            <button role="button" type="button" class="delete" @click="hideHelp"></button>
+          </div>
+          <button class="button wisdom_button">get wisdom</button>
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
 import ClickOutside from 'vue-click-outside';
+import axios from 'axios';
 import { mapGetters } from 'vuex';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -78,7 +92,7 @@ export default {
       this.$store
         .dispatch('fetch')
         .then(() => {
-         // setTimeout(() => this.hideMessage(), 3000);
+          // setTimeout(() => this.hideMessage(), 3000);
         })
         .catch(() => {
           //setTimeout(() => this.hideMessage(), 3000);
@@ -90,11 +104,17 @@ export default {
     showExList() {
       console.log('daymn');
     },
-    toggleHelp(){
+    toggleHelp() {
       this.help = !this.help;
     },
-    hideHelp(){
+    hideHelp() {
       this.help = false;
+    },
+    createDay(){
+      axios.post(process.env.VUE_APP_API_HOST + '/day').then(res => {
+        console.log('fuck');
+        console.log(res);
+      });
     },
   },
 };

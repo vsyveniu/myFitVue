@@ -1,6 +1,8 @@
 import { fetchChain, updateChain } from '@/services/chain.service';
 import store from './index';
 
+var timer = setTimeout(3000);
+
 const mutations = {
   SET_CHAIN(state, chain) {
     state.chain = chain;
@@ -48,7 +50,8 @@ const actions = {
       const res = await updateChain(store.getters.user.name, clone);
       commit('SET_CHAIN_LOADING', false);
       commit('SET_CHAIN_SUCCESS', res.response.data);
-      setTimeout(() => commit('SET_CHAIN_MESSAGE', false), 3000);
+      window.clearTimeout(timer);
+      timer = setTimeout(() => commit('SET_CHAIN_MESSAGE', false), 3000);
     } catch (err) {
       let serverErr = err.response.status != 200 ? true : false;
       commit('SET_CHAIN_FAIL', {

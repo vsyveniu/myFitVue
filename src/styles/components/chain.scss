@@ -1,7 +1,6 @@
 //@import '../../node_modules/normalize.css/normalize.css';
 @import '../variables.scss';
 
-
 .chain__container {
   display: flex;
   align-items: center;
@@ -18,7 +17,6 @@
     align-items: center;
     cursor: grab;
     margin-bottom: 0;
-    
   }
 }
 
@@ -26,21 +24,40 @@
   width: 50px;
   height: 50px;
 }
-.buttons{
+.buttons {
   display: flex;
   justify-content: space-between;
   position: relative;
-  .help_button{
+  .help_button {
     color: white;
     background-color: $primary-color;
     opacity: 0.5;
   }
+  .help_button:hover {
+    opacity: 1;
+  }
+  .help_button.is-active {
+    opacity: 1;
+  }
 
-  .help{
-    width: 400px;
-    border: 1px solid red;
+  .help {
+    max-width: 300px;
+    font-size: 1em;
+    border: 1px solid $secondary-color;
     position: absolute;
     right: 0;
     top: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .content.block {
+      display: flex;
+    }
+
+    .button {
+      color: white;
+      background-color: $danger-color;
+    }
   }
 }

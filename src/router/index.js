@@ -13,7 +13,15 @@ const routes = [
   {
     path: '/myday',
     name: 'myday',
-    component: () => import(/* webpackChunkName: "Day" */ '@/views/Day.vue'),
+    component: () => import(/* webpackChunkName: "Day" */ '@/views/CurrentDay.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/day/:id',
+    name: 'day',
+    component: () => import(/* webpackChunkName: "UpdateDay" */ '@/views/UpdateDay.vue'),
     meta: {
       requiresAuth: true
     }
@@ -29,7 +37,7 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: () => import(/* webpackChunkName: "Home" */ '@/views/Day.vue'),
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/CurrentDay.vue'),
     meta: {
       requiresAuth: true
     }
@@ -37,7 +45,7 @@ const routes = [
   {
     path: '/profile/:id',
     name: 'profileInfo',
-    component: () => import(/* webpackChunkName: "Home" */ '@/views/Day.vue'),
+    component: () => import(/* webpackChunkName: "Home" */ '@/views/CurrentDay.vue'),
     meta: {
       requiresAuth: true
     }

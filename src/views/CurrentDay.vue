@@ -1,12 +1,12 @@
 <template>
-  <div class="hello">
-    this is  one day boy
+  <div>
+   this is day
   </div>
 </template>
 
 <script>
 export default {
-  name: "Day",
+  name: "CurrentDay",
 };
 </script>
 

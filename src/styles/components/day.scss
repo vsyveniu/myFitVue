@@ -1,0 +1,26 @@
+//@import '../../node_modules/normalize.css/normalize.css';
+@import '../variables.scss';
+
+.new_set_container {
+  display: none;
+}
+.new_set_container.is-active {
+  display: block;
+}
+
+.new_set {
+  display: flex;
+  align-items: center;
+  .input {
+    max-width: 400px;
+  }
+  .time_picker {
+    margin-left: 1em;
+  }
+  .button {
+    margin-left: 1em;
+  }
+  .delete {
+    margin-left: auto;
+  }
+}
