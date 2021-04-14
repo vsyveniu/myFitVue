@@ -102,7 +102,7 @@ export default {
       this.$store.dispatch('hideChainMessage');
     },
     showExList() {
-      console.log('daymn');
+      console.log('daymn show exlist unfinished metdod');
     },
     toggleHelp() {
       this.help = !this.help;
@@ -114,7 +114,8 @@ export default {
       axios.post(process.env.VUE_APP_API_HOST + '/day').then(res => {
         console.log('fuck');
         console.log(res);
-      });
+        this.$router.go(`/day/${res.id}`);
+      }).catch(err => { console.log(err)});
     },
   },
 };

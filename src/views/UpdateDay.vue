@@ -6,7 +6,7 @@
 <script>
 
 export default {
-  name: 'CreateDay',
+  name: 'UpdateDay',
   components: {
     Day: () => import('@/components/Day'),
   },

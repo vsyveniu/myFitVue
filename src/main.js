@@ -12,6 +12,9 @@ const token = localStorage.getItem("token");
 if (token) {
   Vue.prototype.$axios.defaults.headers.common["authtoken"] = token;
 }
+console.log('SHIIIIY');
+console.log(process.env.VUE_APP_API_HOST);
+Vue.prototype.$axios.defaults.baseUrl = process.env.VUE_APP_API_HOST;
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

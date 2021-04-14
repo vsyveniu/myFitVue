@@ -2,7 +2,7 @@ import axios from 'axios';
 
 console.log(process.env.VUE_APP_API_HOST);
 
-const API_URL = `http://${process.env.VUE_APP_API_HOST}`;
+const API_URL = process.env.VUE_APP_API_HOST;
 
 console.log(API_URL);
 

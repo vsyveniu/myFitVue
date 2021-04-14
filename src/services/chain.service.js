@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 
-const API_URL = `http://${process.env.VUE_APP_API_HOST}`;
+const API_URL = process.env.VUE_APP_API_HOST;
 
 const fetchChain = async userName => {
   const response = await axios.get(`${API_URL}/chain/${userName}`, {
