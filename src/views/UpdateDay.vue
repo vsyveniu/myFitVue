@@ -5,6 +5,8 @@
 </template>
 <script>
 
+import axios from 'axios';
+
 export default {
   name: 'UpdateDay',
   components: {
@@ -12,18 +14,24 @@ export default {
   },
   data: function() {
     return {
-      day: [],
+      day: {},
       exercises: ['bitch', 'dick'],
+      dayId: this.$route.params.id,
     };
   },
-/*   methods: {
+  mounted (){
+    console.log(this.dayId);
+    this.fetchDay();
+  },
+  methods: {
     fetchDay() {
-      axios.get(process.env.VUE_APP_API_HOST + '/day').then(res => {
+      axios.get(`${process.env.VUE_APP_API_HOST}/day/${this.dayId}`).then(res => {
         console.log('fuck');
         console.log(res);
+        this.day = res.data;
       });
     },
-  }, */
+  },
 };
 </script>
 

@@ -114,7 +114,8 @@ export default {
       axios.post(process.env.VUE_APP_API_HOST + '/day').then(res => {
         console.log('fuck');
         console.log(res);
-        this.$router.go(`/day/${res.id}`);
+        this.$router.push(`/day/${res.data.id}`);
+
       }).catch(err => { console.log(err)});
     },
   },

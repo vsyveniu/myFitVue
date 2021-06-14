@@ -1,5 +1,12 @@
 version: "3"
 services:
+  playwright:
+    image: mcr.microsoft.com/playwright
+    container_name: myfit_playwright
+    ipc: host
+    tty: true
+    volumes:
+      - ./src/tests/:/tests
   app:
     build:
       context: .
