@@ -8,8 +8,7 @@ console.log(API_URL);
 
 const getUser = async id => {
   const response = await axios.get(`${process.env.VUE_APP_API_HOST}/user/${id}`);
-  console.log('in axios');
-  console.log(response.data);
+
   return response.data;
 };
 

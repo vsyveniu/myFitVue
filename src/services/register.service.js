@@ -8,9 +8,6 @@ const registerUser = async (name, email, password) => {
     email: email,
     password: password,
   });
-  console.log('in axios');
-  console.log(response.headers);
-  console.log(response.data);
   return { user: response.data, token: response.headers.authtoken };
 };
 

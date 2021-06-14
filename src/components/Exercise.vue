@@ -16,8 +16,7 @@ export default {
     return {};
   },
   mounted: function() {
-    //console.log(this.day);
-    //console.log(this.exercises);
+
   },
   methods: {},
 };

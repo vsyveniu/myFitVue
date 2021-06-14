@@ -125,8 +125,7 @@ export default {
     };
   },
   mounted: function() {
-    //console.log(this.day);
-    //console.log(this.exercises);
+
   },
   methods: {
     inputHandler(data) {
@@ -139,30 +138,16 @@ export default {
       event.target.closest('button').previousSibling.classList.toggle('is-active');
     },
     createSet() {
-      console.log('newset title');
-      console.log(this.newSet.title);
       this.day.workouts.push({ title: this.newSet.title, time: this.timeValue, set: [{}] });
-      console.log(this.day.workouts);
     },
     reorderSets() {
       console.log(this.day);
     },
     createExercise(event, workout) {
-      console.log('ass');
-      console.log(this.newEx);
-      console.log('workout');
-      console.log(workout);
-      console.log('----------');
-      console.log(event.target.elements.title.value);
-      console.log(event.target.elements.reps.value);
-      console.log(event.target.elements.rest.value);
 
       workout.push({
         meta: { title: event.target.elements.title.value, description: event.target.elements.description.value },
       });
-
-      console.log(this.day);
-      //event.target.closest('button').parentNode.classList.toggle('is-active');
       this.newIndex += 1;
     },
     tradeExercises() {},
